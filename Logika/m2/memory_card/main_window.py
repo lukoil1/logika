@@ -63,3 +63,20 @@ Layout_line1.addStretch(1)
 Layout_line1.addWidget(btn_rest)
 Layout_line1.addWidget(box_minuts)
 Layout_line1.addWidget(QLabel('хвилин'))
+
+Layout_line2.addWidget(lb_questien , alignment=(Qt.AlignHCenter|Qt.AlignVCenter))
+
+Layout_line3.addWidget(RadioGroupBox)
+Layout_line3.addWidget(AnsGroupBox)
+
+Layout_line4.addStretch(1)
+Layout_line4.addWidget(btn_ok)
+Layout_line4.addStretch(1)
+
+Layout_card= QVBoxLayout()
+Layout_card.addLayout(Layout_line1)
+Layout_card.addLayout(Layout_line2)
+Layout_card.addLayout(Layout_line3)
+Layout_card.addLayout(Layout_line4)
+
+main_win.setLayout(Layout_card)
