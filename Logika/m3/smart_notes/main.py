@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import (
     QListWidget, QPushButton, QLineEdit, QHBoxLayout, QVBoxLayout, QInputDialog,
     QTableWidget, QListWidgetItem, QFormLayout, 
     QGroupBox, QButtonGroup, QRadioButton, QSpinBox,QFileDialog,QAction )
+import json
+
 
 app = QApplication([])
 main_win = QWidget()
@@ -48,7 +50,29 @@ col2.addWidget(btn_tag_add)
 col2.addWidget(btn_tag_unpin)
 col2.addWidget(btn_tag_search)
 
-
+with open('m3/smart_notes/notes_data.json', 'r', encoding='utf8') as file:
+    notes = json.load(file)
+    
+def show_notes():
+    key = lst_note.currentItem().text()     
+    field_text.setText(notes[key]['текст'])
+    
+    
+    lst_tag.clear()
+    lst_tag.addItems(notes[key]['теги'])
+    
+    
+def add_note():
+    note_name , ok = QInputDialog.getText(main_win , "Додавання замітки" , "Назва замітки")
+    lst_note.addItem(note_name)
+    
+    
+    
+    
+    
+lst_note.addItems(notes)
+lst_note.itemClicked.connect(show_notes)
+btn_note_create.clicked.connect(add_note)
 
 main_win.setLayout(layout_notes)
 main_win.show()
