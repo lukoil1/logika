@@ -6,6 +6,10 @@ from PyQt5.QtWidgets import (
     QGroupBox, QButtonGroup, QRadioButton, QSpinBox,QFileDialog,QAction )
 import json
 
+def write_file():
+    with open('m3/smart_notes/notes_data.json', 'w', encoding='utf8') as file:
+        json.dump(notes, file , sort_keys=True, ensure_ascii=False, indent=4)
+    
 
 app = QApplication([])
 main_win = QWidget()
@@ -66,13 +70,52 @@ def add_note():
     note_name , ok = QInputDialog.getText(main_win , "Додавання замітки" , "Назва замітки")
     lst_note.addItem(note_name)
     
-    
-    
+    notes[note_name] = {"текст": "","теги":[]}
+
+def save_note():
+    key = lst_note.currentItem().text()
+    text = field_text.toPlainText()
+    notes[key]['текст'] = text
+    write_file()
+
+
+def del_note():
+    key = lst_note.currentItem().text()
+    del notes[key]
+    write_file()
+    lst_tag.clear()
+    lst_note.clear()
+    lst_note.addItems(notes)
+    field_text.clear()
+        
+def add_tag():
+    key = lst_note.currentItem().text()
+    tag = field_tag.text()
+    notes[key]["теги"].append(tag)
+    write_file()
+    lst_tag.addItem(tag)
+        
+def del_tag():
+    key = lst_note.currentItem().text()
+    tag = lst_tag.currentItem().text()
+    notes[key]["теги"].remove(tag)
+    write_file()
+    lst_tag.clear()
+    lst_tag.addItems(notes[key]["теги"])        
+ 
+def search_tag():
+    pass 
     
     
 lst_note.addItems(notes)
 lst_note.itemClicked.connect(show_notes)
 btn_note_create.clicked.connect(add_note)
+btn_note_save.clicked.connect(save_note)
+btn_note_delete.clicked.connect(del_note)
+btn_tag_add.clicked.connect(add_tag)
+btn_tag_unpin.clicked.connect(del_tag)
+btn_tag_search.clicked.connect(search_tag)
+
 
 main_win.setLayout(layout_notes)
 main_win.show()
