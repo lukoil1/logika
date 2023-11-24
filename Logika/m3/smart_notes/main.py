@@ -104,7 +104,26 @@ def del_tag():
     lst_tag.addItems(notes[key]["теги"])        
  
 def search_tag():
-    pass 
+    tag = field_tag.text()
+    
+    if btn_tag_search.text() == 'Шукати замітки по тегу':
+        filtered_notes = []
+        for key in notes:
+            if tag in notes[key]["теги"]:
+                filtered_notes.append(key)
+        lst_tag.clear()
+        field_text.clear()
+        lst_note.clear()
+        lst_note.addItems(filtered_notes)
+        btn_tag_search.setText("Очистити пошук")
+        
+    else:
+        lst_tag.clear()
+        field_text.clear()
+        lst_note.clear()
+        lst_note.addItems(notes)
+        field_tag.clear()
+        btn_tag_search.setText('Шукати замітки по тегу')
     
     
 lst_note.addItems(notes)
