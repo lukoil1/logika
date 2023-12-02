@@ -1,27 +1,27 @@
 {
-    "Vova": {
-        "goal": "fc",
+    "fg": {
+        "goal": "",
         "measurments": {
-            "age": 20,
-            "biceps": 40,
-            "bmi": 18.4,
-            "calf": 40,
-            "chest": 100,
-            "forearm": 30,
-            "height": 192,
-            "hips": 100,
-            "neck": 40,
-            "waist": 80,
-            "weight": 67.7
+            "age": 0,
+            "biceps": 0,
+            "bmi": 0,
+            "calf": 0,
+            "chest": 0,
+            "forearm": 0,
+            "height": 0,
+            "hips": 0,
+            "neck": 0,
+            "waist": 0,
+            "weight": 0
         },
-        "notes": "eeff",
+        "notes": "",
         "nutrition": {
-            "creatine": 5,
-            "protein": 120
+            "creatine": 0,
+            "protein": 0
         },
         "personal": {
-            "gender": "Чоловік",
-            "name": "Vova"
+            "gender": "",
+            "name": "wowa"
         }
     }
 }
