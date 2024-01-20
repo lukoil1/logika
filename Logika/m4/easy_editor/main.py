@@ -41,16 +41,36 @@ h_main.addLayout(v1,1)
 h_main.addLayout(v2,4)
 
 def filter(files):
-    pass
+    exts = ['png', 'jpeg', 'jpg', 'bmp', 'gif' ]
+    img_file = []
+
+    for file in files:
+        for ext in exts:
+            if file.endswith(ext):
+                img_file.append(file)
+    return img_file
+
+
     
 def showFilenamesList():
     workdir = QFileDialog.getExistingDirectory()
     #print(workdir)
     files_and_folders = os.listdir(workdir)
-    
+    files = filter(files_and_folders)
+    lst_images.clear()
+    lst_images.addItems(files)
+
+class ImageProccesor():
+    def __init__(self):
+        self.original = None
+        self.filename = None
+        self.save_dir = "Modified/"
 
 
 
+workImage = ImageProccesor()
+        
+        
 btn_folder.clicked.connect(showFilenamesList)
 
 main_win.setLayout(h_main)
