@@ -53,6 +53,7 @@ def filter(files):
 
     
 def showFilenamesList():
+    global workdir
     workdir = QFileDialog.getExistingDirectory()
     #print(workdir)
     files_and_folders = os.listdir(workdir)
@@ -65,14 +66,35 @@ class ImageProccesor():
         self.original = None
         self.filename = None
         self.save_dir = "Modified/"
-
-
-
+    def Loadimage(self , filename):
+        self.filename = filename
+        full_path = os.path.join(workdir , filename)
+        self.original = Image.open(full_path)
+        
+    def showimage(self , full_path):
+        lb_pic.hide()
+        pixmapimage = QPixmap(full_path)
+        w = lb_pic.width()
+        h = lb_pic.height()
+        pixmapimage = pixmapimage.scaled(w , h , Qt.KeepAspectRatio)
+        lb_pic.setPixmap(pixmapimage)
+        
+        
+        lb_pic.show()
+        
+def showchosenitem():
+    filename = lst_images.currentItem().text()
+    workImage.Loadimage(filename)
+    full_path = os.path.join(workdir , filename)
+    workImage.showimage(full_path)
+    
+    
+            
 workImage = ImageProccesor()
         
         
 btn_folder.clicked.connect(showFilenamesList)
-
+lst_images.itemClicked.connect(showchosenitem)
 main_win.setLayout(h_main)
 main_win.show()
 app.exec()

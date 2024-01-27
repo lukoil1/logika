@@ -13,4 +13,4 @@ with Image.open('m4/u1/dog.jpg') as original:
     #left.show()
     grej.save('m4/u1/grej_dog.jpg')
     blur.save('m4/u1/blur_dog.jpg')
-    left.save('m4/u1/left_dog.jpg')
+    left.save('m4/u1/left_dog.jpg') 
