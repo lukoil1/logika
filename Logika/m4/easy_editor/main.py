@@ -82,6 +82,34 @@ class ImageProccesor():
         
         lb_pic.show()
         
+    def saveAndShowPicture(self):
+        path = os.path.join(workdir, self.save_dir)
+        if not (os.path.exists(path) or os.path.isdir(path)):
+            os.mkdir(path)
+        image_path = os.path.join(path, self.filename)
+        self.original.save(image_path)
+        self.showimage(image_path)   
+        
+    def do_left(self):
+        self.original = self.original.transpose(Image.ROTATE_90)
+        self.saveAndShowPicture()
+    
+    def do_right(self):
+        self.original = self.original.transpose(Image.ROTATE_270)
+        self.saveAndShowPicture()    
+        
+    def do_flip(self):
+        self.original = self.original.transpose(Image.FLIP_LEFT_RIGHT)
+        self.saveAndShowPicture() 
+        
+    def do_bw(self):
+        self.original = self.original.convert('L')
+        self.saveAndShowPicture() 
+        
+    def do_sharp(self):
+        self.original = self.original.filter(ImageFilter.SHARPEN)
+        self.saveAndShowPicture()
+              
 def showchosenitem():
     filename = lst_images.currentItem().text()
     workImage.Loadimage(filename)
@@ -92,7 +120,12 @@ def showchosenitem():
             
 workImage = ImageProccesor()
         
-        
+btn_BW.clicked.connect(workImage.do_bw)        
+btn_sharp.clicked.connect(workImage.do_sharp)        
+btn_mirror.clicked.connect(workImage.do_flip)        
+btn_right.clicked.connect(workImage.do_right)        
+btn_left.clicked.connect(workImage.do_left)  
+      
 btn_folder.clicked.connect(showFilenamesList)
 lst_images.itemClicked.connect(showchosenitem)
 main_win.setLayout(h_main)
