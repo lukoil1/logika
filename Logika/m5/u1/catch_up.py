@@ -1,9 +1,36 @@
 from pygame import *
 
-#створи вікно гри
+window = display.set_mode([700,500])
+background = image.load("Logika/m5/u1/background.png")
+background = transform.scale(background, [700,500])
 
-#задай фон сцени
-
-#створи 2 спрайти та розмісти їх на сцені
-
-#оброби подію «клік за кнопкою "Закрити вікно"»
+sprite1= image.load("Logika/m5/u1/sprite1.png")
+sprite1 = transform.scale(sprite1 , [100,100])
+y1 = 350
+x1 = 100
+clock = time.Clock()
+FPS = 60
+running=True
+while running:
+    for e in event.get(): 
+        if e.type==QUIT:
+            running=False
+            quit()
+    window.blit(background, [0,0])
+    window.blit(sprite1,[x1,y1])
+    
+    keys = key.get_pressed()
+    if keys[K_UP]:
+        y1 -= 10
+    if keys[K_DOWN]:
+        y1 += 10
+    if keys[K_LEFT]:
+        x1 -= 10
+    if keys[K_RIGHT]:
+        x1 += 10
+    #K_w
+    #K_a
+    #K_d
+    display.update()
+    clock.tick(FPS)
+    
