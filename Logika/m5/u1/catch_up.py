@@ -32,6 +32,7 @@ while running:
         x1 -= 10
     if keys[K_RIGHT]:
         x1 += 10
+            
     if keys[K_w]:
         y2 -= 10
     if keys[K_s]:
@@ -41,9 +42,7 @@ while running:
     if keys[K_d]:
         x2 += 10
         
-    #K_w
-    #K_a
-    #K_d
+    
     display.update()
     clock.tick(FPS)
     
