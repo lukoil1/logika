@@ -5,12 +5,31 @@ from pygame.transform import scale, flip
 from pygame.image import load
 from random import randint
 
+
 class GameSprite(sprite.Sprite):
     def __init__(self, image, x, y, speed):
         super().__init__()
         self.image = load(image)
         self.image = scale(self.image, [60,60])
         self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.speed = speed
+        
+    def drow(self):
+        window.blit(self.image,[self.rect.x,self.rect.y])
+        
+        
+class Player(GameSprite):
+    def move(self):
+        pass
+    
+    
+class Enemy(GameSprite):
+    def move(self):
+        pass
+    
+    
 mixer.init()
 mixer.music.load("Logika/m5/maze/jungles.ogg")
 mixer.music.play(-1)
@@ -23,6 +42,13 @@ background = load("Logika/m5/maze/background.jpg")
 background = scale(background, [width,height])
 clock = time.Clock()
 FPS = 60
+
+hero = GameSprite("Logika/m5/maze/hero.png", 0, 0, 5)
+cyborg = GameSprite("Logika/m5/maze/cyborg.png", 550, 250, 5)
+gold = GameSprite("Logika/m5/maze/treasure.png",550, 400, 0 )
+
+
+
 game = True
 while game == True:
     for e in event.get():
@@ -31,5 +57,8 @@ while game == True:
 
 
     window.blit(background,[0,0])
+    hero.drow()
+    cyborg.drow()
+    gold.drow()
     display.update()
     clock.tick(60)
