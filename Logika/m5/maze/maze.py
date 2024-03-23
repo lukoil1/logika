@@ -22,12 +22,29 @@ class GameSprite(sprite.Sprite):
         
 class Player(GameSprite):
     def move(self):
-        pass
-    
+        keys =key.get_pressed() 
+        if keys[K_UP]:
+            self.rect.y -= self.speed
+        if keys[K_DOWN]:
+            self.rect.y += self.speed
+        if keys[K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[K_RIGHT]:
+            self.rect.x += self.speed
+        
     
 class Enemy(GameSprite):
+    direction = 'left'
     def move(self):
-        pass
+        if self.direction == 'left':
+            self.rect.x -= self.speed
+        else:
+            self.rect.x += self.speed
+        if self.rect.x <= 350:
+            self.direction ='right'
+        if self.rect.x >=600:
+            self.direction = 'left'
+        
     
     
 mixer.init()
@@ -43,8 +60,8 @@ background = scale(background, [width,height])
 clock = time.Clock()
 FPS = 60
 
-hero = GameSprite("Logika/m5/maze/hero.png", 0, 0, 5)
-cyborg = GameSprite("Logika/m5/maze/cyborg.png", 550, 250, 5)
+hero = Player("Logika/m5/maze/hero.png", 0, 0, 5)
+cyborg = Enemy("Logika/m5/maze/cyborg.png", 550, 250, 5)
 gold = GameSprite("Logika/m5/maze/treasure.png",550, 400, 0 )
 
 
@@ -55,8 +72,17 @@ while game == True:
         if e.type== QUIT:
             game = False
 
+    if collide_rect(hero, gold):
+        print("you win")
+        game = False
+    
+    if collide_rect(hero, cyborg):
+        print("you lose")
+        game = False
 
     window.blit(background,[0,0])
+    hero.move()
+    cyborg.move()
     hero.drow()
     cyborg.drow()
     gold.drow()
